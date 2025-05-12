@@ -13,9 +13,17 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        $documents = Document::with('user')
-            ->orderBy('id', 'desc')
-            ->get();
+        if (Auth::user()->hasRole('user')) {
+            $documents = Document::with('user')
+                ->where('user_id', Auth::id())
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $documents = Document::with('user')
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
 
         return view('dashboard', compact('documents'));
     }
