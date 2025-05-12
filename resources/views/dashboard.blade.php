@@ -20,6 +20,20 @@
                 <input id="document" type="file" class="hidden" name="document[]" multiple required />
                 <label id="fileNames" class="flex flex-wrap gap-2 max-w-md hidden cursor-pointer"
                     for="document"></label>
+                <div class="relative max-w-sm flex">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        </svg>
+                    </div>
+                    <input datepicker id="default-datepicker" type="text"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                        placeholder="Select date" name="date" required />
+                </div>
+
+
                 <x-primary-button class="h-12" type="submit">
                     {{ __('Post') }}
                 </x-primary-button>
@@ -49,7 +63,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] uppercase tracking-wider">
                                 User</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] uppercase tracking-wider">
-                                Created At(d-m-y)</th>
+                                Date(y-m-d)</th>
                             @if (!Auth::user()->hasRole('user'))
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] uppercase tracking-wider">
@@ -68,7 +82,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     {{ $document->user->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    {{ $document->created_at->format('d/m/y') }}</td>
+                                    {{ $document->date }}
+                                </td>
                                 @if (!Auth::user()->hasRole('user'))
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                                         <form action="{{ route('documents.destroy', $document) }}" method="POST"

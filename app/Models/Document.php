@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $fillable = [
+        'date',
         'path',
         'user_id',
     ];

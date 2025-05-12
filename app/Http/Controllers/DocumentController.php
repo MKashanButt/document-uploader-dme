@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDocumentRequest;
 use App\Models\Document;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -31,11 +32,19 @@ class DocumentController extends Controller
     public function store(StoreDocumentRequest $request)
     {
         $uploadedFiles = [];
+        $dateString = $request->input('date');
+
+        // Parse with correct format (m/d/Y for MM/DD/YYYY)
+        $date = Carbon::createFromFormat('m/d/Y', $dateString);
+
+        // Format output (e.g., for database storage)
+        $formattedDate = $date->format('Y-m-d'); // "2025-05-15"
 
         foreach ($request->file('document') as $file) {
             $path = $file->store('documents', 'public');
 
             $uploadedFiles[] = Document::create([
+                'date' => $formattedDate,
                 'path' => $path,
                 'user_id' => Auth::id(),
             ]);

@@ -23,6 +23,7 @@ class StoreDocumentRequest extends FormRequest
     public function rules()
     {
         return [
+            'date' => 'required|string',
             'document' => 'required|array',
             'document.*' => 'file|mimes:pdf,jpg,jpeg,png'
         ];

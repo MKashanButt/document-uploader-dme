@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->string('path');
             $table->foreignId('user_id')
                 ->nullable()
